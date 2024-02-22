@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Interesting facts about numbers</string>
+
+    <string name="trivia">Trivia</string>
+    <string name="year">Year</string>
+    <string name="date">Date</string>
+    <string name="math">Math</string>
+
+    <string name="enter_number">Your number: </string>
+    <string name="get_fact">Get Fact</string>
+    <string name="get_random_fact">Get Random Fact</string>
+    <string name="fact_type">Fact Type ↓</string>
+    <string name="number">Number: </string>
+    <string name="clear_list">Clear list</string>
+
+</resources>
