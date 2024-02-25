@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.factsofdigits.domain.Repository
 import com.example.factsofdigits.presentation.MyApplication
+import com.example.factsofdigits.presentation.ui.recycler.FactListAdapter
 import com.example.factsofdigits.presentation.viewmodel.model.FactInfo
 import com.example.factsofdigits.presentation.viewmodel.model.FactType
 import kotlinx.coroutines.Dispatchers
@@ -45,13 +46,19 @@ class MainViewModel(private val repo: Repository) : ViewModel() {
         }
     }
 
+    fun showFactsHistory(rAdapter: FactListAdapter) {
+        viewModelScope.launch {
+            rAdapter.addHistory(getFactsHistory())
+        }
+    }
+
     fun deleteFactsHistory() {
         viewModelScope.launch(Dispatchers.IO) {
             repo.deleteAllFacts()
         }
     }
 
-    suspend fun getFactsHistory(): List<FactInfo> {
+    private suspend fun getFactsHistory(): List<FactInfo> {
         return withContext(Dispatchers.IO) {
             repo.getSavedFacts().map { FactInfo(it.first, it.second) }
         }
@@ -59,10 +66,10 @@ class MainViewModel(private val repo: Repository) : ViewModel() {
 
     private fun requestAndSaveInfo(number: String, type: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            _numberInfo.emit(
+            _numberInfo.emit( // save
                 FactInfo(
                     number = number,
-                    info = repo.getFactInfo(number, type)
+                    info = repo.getFactInfo(number, type) // request
                 )
             )
         }

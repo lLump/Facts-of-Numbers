@@ -8,13 +8,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.factsofdigits.databinding.ActivityMainBinding
 import com.example.factsofdigits.presentation.ui.recycler.FactListAdapter
 import com.example.factsofdigits.presentation.viewmodel.MainViewModel
 import com.example.factsofdigits.presentation.viewmodel.model.FactInfo
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -44,11 +42,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //TODO ("Закинуть во вьюмодель")
     private fun loadFactHistory() {
-        viewModel.viewModelScope.launch(Dispatchers.IO) {
-            rAdapter.addHistory(viewModel.getFactsHistory())
-        }
+        viewModel.showFactsHistory(rAdapter) // Probably not the best idea
     }
 
     private fun startActivityByChosenFact(fact: FactInfo) {

@@ -14,11 +14,18 @@ class DetailFactActivity : AppCompatActivity() {
         binding = ActivityDetailFactBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         val number = intent.getStringExtra("number")
         val info = intent.getStringExtra("info")
 
         binding.textDetailNumber.text = number
         binding.textDetailInfo.text = info
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return super.onSupportNavigateUp()
     }
 
     companion object {
